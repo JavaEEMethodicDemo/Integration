@@ -1,0 +1,13 @@
+spring容器执行的顺序：
+   1、在配置文件中
+   		<bean id="helloWorld" 
+		class="com.itheima08.spring.ioc.initdestroy.HelloWorld"
+		init-method="init"
+		destroy-method="destroy"></bean>
+   2、执行步骤
+        1、启动spring容器
+        2、把spring容器中的bean创建对象,除了(scope为"prtotype"和lazy-init为true)
+        3、调用init方法,该方法是由spring容器内部调用的
+        4、从spring容器中把对象提取出来，对象调用方法
+        5、当spring容器关闭的时候，由spring容器内部调用bean的destroy方法
+        	(该bean是单例，如果该bean是多例，则spring容器不负责销毁)

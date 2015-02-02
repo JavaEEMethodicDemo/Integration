@@ -1,0 +1,6 @@
+1、spring容器的总的接口
+	ApplicationContext
+2、实现类：ClasspathXmlApplicationContext
+              通过classpath的方式加载xml文件
+3、WebApplicationContext接口
+     	指的是spring的web容器

@@ -1,0 +1,52 @@
+元素:
+   1、目标接口
+   2、目标类
+   3、事务
+   4、进行aop的配置
+步骤：
+   1、准备接口
+        PersonDao
+   2、准备目标类
+        PersonDaoImpl
+   3、准备事务
+        Transaction
+   4、在spring的配置文件中
+   		1、引入命名空间
+   			xmlns:aop="http://www.springframework.org/schema/aop"
+   			http://www.springframework.org/schema/aop 
+           http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+        2、把personDao和事务放入到spring容器中
+        	<bean id="personDao" class="com.itheima08.spring.aop.xml.PersonDaoImpl">
+        	</bean>
+     		<bean id="transaction" class="com.itheima08.spring.aop.xml.Transaction">
+     		</bean>
+     	3、aop的配置
+     		<aop:config>
+	     	<!-- 
+	     		切入点表达式
+	     			expression
+	     		   id是唯一标示
+	     	 -->
+	     	<aop:pointcut 
+	     		expression="execution(* com.itheima08.spring.aop.xml.PersonDaoImpl.*(..))" 
+	     		id="perform"/>
+	     	<!-- 
+	     		aop:aspect就代表一个切面
+	     	 -->
+	     	<aop:aspect ref="transaction">
+	     		<!-- 
+	     			前置通知
+	     		 -->
+	     		<aop:before method="beginTransaction" pointcut-ref="perform"/>
+	     		<!-- 
+	     			后置通知
+	     		 -->
+	     		<aop:after-returning method="commit" pointcut-ref="perform"/>
+	     	</aop:aspect>
+	     </aop:config>
+	   4、客户端
+	   		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+			PersonDao personDao = (PersonDao)context.getBean("personDao");
+			personDao.savePerson();
+		personDao就是代理对象，savePerson方法=目标方法+通知
+   

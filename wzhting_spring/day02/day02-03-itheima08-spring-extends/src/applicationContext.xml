@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	<!-- 
+		把Person和Student放入到spring容器中
+		abstract该类是抽象类，不用spring容器创建对象
+	 -->
+	<bean id="person" class="com.itheima08.spring.extend.Person" abstract="true">
+		<property name="s" value="aaa"></property>
+		<property name="pid" value="1"></property>
+		<property name="student" ref="student"></property>
+	</bean>
+	<!-- 
+		parent 从spring容器的角度继承了person
+	 -->
+	<bean id="student" class="com.itheima08.spring.extend.Student" parent="person">
+	</bean>
+</beans>

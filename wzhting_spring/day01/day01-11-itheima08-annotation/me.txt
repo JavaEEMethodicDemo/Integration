@@ -1,0 +1,34 @@
+注解：
+	1、注解是用来做标记
+	2、注解不能单独存在
+		public enum ElementType {
+		    //指的是类和接口
+		    TYPE,
+		    //属性
+		    FIELD,
+		
+		    //方法
+		    METHOD,
+		
+		    //方法的参数
+		    PARAMETER,
+		
+		    //构造器
+		    CONSTRUCTOR,
+		
+		    //局部变量
+		    LOCAL_VARIABLE,
+		
+		    //注解类型
+		    ANNOTATION_TYPE,
+		    //包
+		    PACKAGE
+		}
+	3、注解必须标注在类上的某一个部分
+	4、自定义注解
+		@interface说明该类是一个注解类
+		必须标明该注解的作用域范围
+		必须标明该注解的生命周期
+	5、写一个注解解析器
+	    	解析注解的
+	    如果要想得到一个类的注解，先得到class,得到方法上的注解，先得到method

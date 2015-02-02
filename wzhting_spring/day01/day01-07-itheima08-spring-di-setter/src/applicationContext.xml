@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	<bean id="person" class="com.itheima08.spring.di.xml.setter.Person">
+		<!-- 
+			property描述的是该bean所在类的属性
+			  name属性的名称
+			  value 给基本类型赋值
+		 	  ref   给引用类型赋值
+		 -->
+		<property name="pid" value="5"></property>
+		<property name="name" value="王二麻子"></property>
+		<!-- 
+		<property name="student" ref="student"></property>
+		 -->
+		 <property name="student">
+		 	<ref bean="student"/>
+		 </property>
+		<!-- 
+			对list的装配
+		 -->
+		<property name="lists">
+			<list>
+				<value>list1</value>
+				<value>list2</value>
+				<ref bean="student"/>
+			</list>
+		</property>
+		<!-- 
+			对set的装配
+		 -->
+		<property name="sets">
+			<set>
+				<value>set1</value>
+				<value>set2</value>
+				<ref bean="student"/>
+			</set>
+		</property>
+		<!-- 
+			对map的装配
+		 -->
+		<property name="map">
+			<map>
+				<entry key="m1">
+					<value>map1</value>
+				</entry>
+				<entry key="m2">
+					<value>map2</value>
+				</entry>
+				<entry key="m3">
+					<ref bean="student"/>
+				</entry>
+			</map>
+		</property>
+		<!-- 
+			对properties的装配
+		 -->
+		<property name="properties">
+			<props>
+				<prop key="p1">
+					p1
+				</prop>
+				<prop key="p2">
+					p2
+				</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="student" class="com.itheima08.spring.di.xml.setter.Student"></bean>
+</beans>

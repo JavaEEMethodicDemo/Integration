@@ -1,0 +1,29 @@
+spring的di:给属性赋值(依赖注入:给属性装配值的过程)
+   1、xml
+       	利用setter方法
+       		1、Person
+       		    public class Person{
+       		        private Long pid;        //基本类型
+       		        private String name;     //基本类型
+       		        private Student student; //引用类型
+       		        private List lists;
+       		        private Set sets;
+       		        private Map map;
+       		        private Properties properties;
+       		    }
+  		利用构造器进行赋值
+   2、注解
+   
+xml的形式的setter方法：
+  1、准备两个类
+       Person
+       Student
+  2、写spring的配置文件
+  	1、把Person和Student放入到spring容器中
+  	2、完成Person类中的属性的装配
+  		1、基本类型用value进行赋值
+  		    	例如在spring容器中引入dataSource,在产生dataSource的时候有一些比较常规的固定的配置
+  		    	这些配置就应该写在spring的配置文件中，这个时候用value
+  		2、引用类型用ref赋值
+  		3、对集合类型进行装配
+  		        hibernate的映射文件可以放到spring容器的配置文件中，利用集合进行装配

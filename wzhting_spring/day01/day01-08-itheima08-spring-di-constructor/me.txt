@@ -1,0 +1,21 @@
+利用构造器注入
+ 1、把Person和Student放入到spring容器中
+ 2、在配置文件中配置唯一的构造器
+ 	<constructor-arg index="0" value="1"></constructor-arg>
+	<constructor-arg index="1" ref="student"></constructor-arg>
+ 
+ 
+ 
+注意:
+   如果在spring容器中写如下的配置
+   	<bean id="person" class="com.itheima08.spring.di.constrcutor.Person"></bean>
+   spring容器必须使用默认的构造函数创建对象
+   
+ 说明:
+     在一个类中
+       1、提供一个无参的构造函数
+       2、提供这些类的所有的属性的setter和getter方法
+       3、提供一些带参数的构造函数
+      在spring容器的配置文件中，写法比较灵活了
+         1、可以利用setter方法进行装配
+         2、可以利用构造器函数进行装配

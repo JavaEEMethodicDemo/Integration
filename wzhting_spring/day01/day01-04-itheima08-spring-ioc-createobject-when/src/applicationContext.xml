@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	<!-- 
+		默认的构造函数
+		lazy-init
+		    default/false
+		    true
+	 -->
+	<bean id="helloWorld" 
+		class="com.itheima08.spring.ioc.createobject.when.HelloWorld"
+		lazy-init="true"></bean>
+	
+	<!-- 
+		静态工厂方法
+	 -->
+	<bean id="helloWorld2" class="com.itheima08.spring.ioc.createobject.when.HelloWorldFactory"
+		factory-method="getInstance"></bean>
+		
+    <bean id="helloWorldFactory" class="com.itheima08.spring.ioc.createobject.when.HelloWorldFactory2"></bean>
+    
+    <!-- 
+    	实例工厂方法
+     -->
+    <bean id="helloWorld3" factory-bean="helloWorldFactory" factory-method="getInstance"></bean>
+</beans>

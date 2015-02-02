@@ -1,0 +1,42 @@
+利用注解进行di
+   1、把person和student放入到spring容器中
+   2、在spring的配置文件中
+   		1、引入命名空间
+   			xmlns:context="http://www.springframework.org/schema/context"
+   			http://www.springframework.org/schema/context 
+           http://www.springframework.org/schema/context/spring-context-2.5.xsd
+        2、引入依赖注入的注解解析器
+        	<context:annotation-config></context:annotation-config>
+   3、在java文件中
+   		public class Person {
+			@Resource
+			private Student student;
+			private Long pid;
+			public Student getStudent() {
+				return student;
+			}
+			public Long getPid() {
+				return pid;
+			}
+		}
+		利用@Resource该注解进行注入
+原理：
+    1、启动spring容器
+    2、spring容器会为person和student创建对象
+    3、spring容器会解析
+    	<context:annotation-config></context:annotation-config>
+    	会检查所有的在spring容器中的bean
+    4、看这些bean的属性上是否有@Resource注解
+                        会检查该注解的name的属性的值
+                            如果为""
+                	则会根据该注解所在的属性的名称和spring容器中的id值做匹配
+                	      如果匹配成功，则赋值，如果匹配不成功，则按照类型进行匹配,如果匹配成功，则赋值，如果匹配不成功，则报错
+                           如果不为""
+                   	则根据该注解的name的属性的值和spring容器中的id值做匹配，
+                   	   成功，则赋值，不成功，则报错
+                   	   
+注解和xml:
+   xml效率比较高，书写比较麻烦
+        注解效率比较低，书写比较简单
+        
+注意:基本类型和集合不能利用注解赋值

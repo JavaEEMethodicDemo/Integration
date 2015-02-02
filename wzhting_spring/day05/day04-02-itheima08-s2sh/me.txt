@@ -1,0 +1,45 @@
+整合的步骤的原则：
+   1、环境的搭建
+      1、创建一个web project
+      2、改变编码形式
+      3、创建三个src folder
+            src
+               	存放源代码
+            config
+                                          存放配置文件
+                struts2
+                hibernate
+                spring
+            test
+            	测试类
+      4、jar
+      	  struts2
+      	  hibernate
+      	  spring
+      	  db
+      	  test
+   2、谁能测试先写谁
+      1、在src下创建一个包
+          com.itheima08.s2sh.domain
+      2、在该包下创建一个持久化类和映射文件
+      3、在config/hiberante下创建hibernate的配置文件
+      	  hibernate.cfg.xml
+      4、写spring的配置文件
+      	   在applicationContext.xml文件中引入
+      	    applicationContext-db.xml文件
+      	    	<import resource="applicationContext-db.xml"/>
+      5、在applicationContext-db.xml文件中引入sessionFactory
+      		<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+				<property name="configLocation">
+					<value>classpath:hibernate/hibernate.cfg.xml</value>
+				</property>
+			</bean>
+	  6、测试sessionFactory
+	  7、写dao,service的包、类、接口
+	  8、把dao,service层的类放入到spring容器中
+	  9、完成spring声明式事务处理的配置
+	  10、创建action层的包和类
+	  11、把PersonAction放入到spring容器中
+	  		注意：在personAction的spring的配置中一定要写一个属性scope="prototype"
+	  12、写struts2的配置文件
+	  13、写web.xml文件

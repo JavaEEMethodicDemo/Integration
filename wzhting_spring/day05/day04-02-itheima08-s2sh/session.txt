@@ -1,0 +1,22 @@
+关于session
+  	 如果当前访问的方法的环境没有事务，则HibernateTemplate方法结束完以后，session关闭
+  	 如果一个方法在事务环境中,该方法中的session是不能关闭的,直到事务方法结束
+no session的错误是由hibernate的懒加载引起的
+   hibernate的懒加载：
+      1、session.load  类的懒加载
+      2、Classes classes = session.get(Classes.class,5L);
+         classes.getStudents();  在遍历集合的时候才要加载学生的数据   为集合的懒加载
+      3、student.getClasses();  懒加载
+          "from Classes";
+          
+解决该问题的方式:OpenSessionInView模式
+   执行顺序：
+      1、执行OpenSessionInViewFilter中的
+      	doFilterInternal中的try部分
+      		从sessionFactory得到session
+      2、执行struts2的核心过滤器中的try部分
+      3、执行struts2的核心过滤器中的finally部分
+      4、执行OpenSessionInViewFilter中的finally部分：关闭session
+    从上面可以得出：
+       session被提前开启了，被延迟关闭了
+	

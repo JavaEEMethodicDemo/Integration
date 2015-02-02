@@ -1,0 +1,21 @@
+原理：
+    1、在hibernate中是由session来提取事务
+    2、session:
+         1、建立数据库连接的链路
+         2、session的产生方式：
+              1、openSession
+                  	新创建了一个session
+              2、getCurrentSession
+                                                    判断当前线程中是否有session,
+                                                     如果有，则提取出来，如果没有，则创建新的，
+                                                     再把新的放入到当前线程中
+         3、spring容器产生事务需要session,程序员进行crud的操作需要session
+            	这两个session必须是同一个session
+步骤：
+   1、hibernate的配置文件
+   2、持久化类和映射文件
+   3、建立dao,service层的包、类、接口
+   4、把dao,service层的类放入到spring容器中
+   5、aop:config	
+	
+   		

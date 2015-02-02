@@ -1,0 +1,18 @@
+把一个类放入到spring容器中，该类是单例还是多例：
+	1、在默认的配置的情况下，spring中的一个bean只能产生一个对象
+	2、在spring的配置文件中
+		<bean id="helloWorld" 
+		class="com.itheima08.spring.ioc.createobject.scope.HelloWorld"
+			scope="prototype"></bean>
+		scope为"prototype"就是多例的
+	3、如果把一个bean放入到spring容器中，而且该bean是单例的，如果在该bean中声明了一个属性，
+		    该属性存放数据，该数据将成为全局的数据
+		    public class A{
+		       private List<String> sList;
+		    }
+		    如果a是单例的，那么sList就是一个共享的数据
+	4、如果一个bean配置了scope为"prototype"，那么lazy-init的值将失效，都是在getBean时才要初始化对象
+	
+	5、如果lazy-init和scope结合起来
+		scope为"prototype",lazy-init不起作用
+		scope"singleton" 按照lazy-init的规则来做

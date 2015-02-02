@@ -1,0 +1,20 @@
+ioc和di的意义
+   mvc的内容:
+      1、建立三个层
+          com.itheima08.spring.mvc.action
+          com.itheima08.spring.mvc.service
+          com.itheima08.spring.mvc.service.impl
+          com.itheima08.spring.mvc.dao
+          com.itheima08.spring.mvc.dao.impl
+      2、通过spring的配置文件的形式，给类中的接口赋值
+      	<bean id="personAction" class="com.itheima08.spring.mvc.action.PersonAction">
+		<property name="personService">
+			<ref bean="personService"/>
+		</property>
+		</bean>
+		<bean id="personService" class="com.itheima08.spring.mvc.service.impl.PersonServiceImpl">
+			<property name="personDao">
+				<ref bean="personDao"/>
+			</property>
+		</bean>
+		<bean id="personDao" class="com.itheima08.spring.mvc.dao.impl.PersonDaoImpl"></bean>

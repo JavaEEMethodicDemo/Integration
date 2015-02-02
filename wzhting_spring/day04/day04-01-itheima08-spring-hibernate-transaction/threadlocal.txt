@@ -1,0 +1,10 @@
+有一个类为：A
+           aa(){
+               String s = "aa";
+               bb(s);
+           }
+有一个类为:B
+           bb(String s){
+           
+           }
+这样是传递参数的一个方式,还可以利用ThreadLocal进行传递

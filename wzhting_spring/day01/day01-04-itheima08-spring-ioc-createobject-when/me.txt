@@ -1,0 +1,13 @@
+spring容器创建对象的时间
+   1、在默认的情况下
+   		当启动spring容器的时候创建对象
+   		如果将来spring容器和web容器整合，当spring的配置文件中有错误的时候，当web容器启动的时候就会报错
+   		这样可以更早得发现错误
+        
+                     如果把一个数据写在该类的构造器中，那么数据会过早得加载到内存中
+   2、在指定的情况下
+   		<bean id="helloWorld" 
+		class="com.itheima08.spring.ioc.createobject.when.HelloWorld"
+		lazy-init="true"></bean>
+		配置了lazy-init为"true"时，当context.getBean时才要创建对象
+   3、在默认的情况下，在spring容器启动的时候，只要配置bean了，就会为该bean创建对象

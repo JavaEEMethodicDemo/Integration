@@ -1,0 +1,35 @@
+spring容器创建对象的三种方式
+   1、默认的构造函数
+       <bean id="helloWorld" 
+       	 class="com.itheima08.spring.ioc.createobejct.method.HelloWorld"></bean>
+       	采用的是默认的构造器创建对象
+   2、静态工厂
+       1、工厂类
+       		public class HelloWorldFactory {
+				public static HelloWorld getInstance(){
+					return new HelloWorld();
+				}
+			}
+       2、在spring的配置文件中
+       		<bean id="helloWorld2" class="com.itheima08.spring.ioc.createobejct.method.HelloWorldFactory"
+			factory-method="getInstance"></bean>
+			  factory-method指明了静态工厂方法
+       		说明：
+       		    创建对象的代码在静态工厂方法中填写
+       		  spring容器仅仅调用了静态工厂方法而已
+   3、实例工厂
+   		1、工厂类
+   		    public class HelloWorldFactory2{
+   		    	public  HelloWorld getInstance(){
+					return new HelloWorld();
+				}
+   		    }
+   		2、配置文件
+   			<bean id="helloWorldFactory2" 
+   				class="com.itheima08.spring.ioc.createobejct.method.HelloWorldFactory2">
+			</bean>
+			让spring容器为HelloWorldFactory2创建对象
+		    <bean id="helloWorld3" 
+		    	factory-bean="helloWorldFactory2" 
+		    	factory-method="getInstance"></bean>
+		    告诉spring容器用helloWorldFactory2的对象调用getInstance方法从而创建helloWorld

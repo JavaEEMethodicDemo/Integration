@@ -1,0 +1,81 @@
+1、struts2,hibernate,spring在整个的结构中充当了什么角色？
+    struts2是一个mvc
+    hibernate:数据库操作框架
+    spring:
+       1、spring的声明式事务处理
+       2、面向接口编程
+2、struts2是怎么样和tomcat结合在一起的？
+3、spring容器在整合的过程中和哪些框架发生了交互？
+     spring容器和web容器发生了交互
+               可以通过以下的方式获取web中的spring容器
+        WebApplicationContextUtils.getWebApplicationContext(servletContext)
+     spring容器和struts2容器：
+        spring容器产生的action对象交给了struts2容器
+4、不要把PersonAction放入到spring容器中，怎么样？
+
+
+原理：
+   1、在启动web容器的时候
+       1、监听器的形式
+       		<listener>
+				<listener-class>org.springframework.web.context.
+					ContextLoaderListener</listener-class>
+			</listener>
+			1、ApplicationContext这是spring容器的总的接口
+				WebApplicationContext  这是spring容器的web容器
+				   每一个实现了springweb容器的类中，含有一个
+				      ServletContext的引用
+				spring容器最后会以key,value的形式存放在application域中
+			2、spring容器和web容器的生命周期是一样的
+			3、spring容器的配置文件的写法：
+			    1、默认的位置
+			    	WEB-INF/
+			    	        applicationContext.xml
+			    	        application*.xml
+			    	        *Context.xml
+			    	                     任意文件夹/
+			    	  上面这种方式没有办法用classpath进行测试
+			    2、
+			    	<context-param>
+						<param-name>contextConfigLocation</param-name>
+						<param-value>classpath:spring/applicationContext.xml</param-value>
+					</context-param>
+					通过这种方式可以通过classpath的路径加载spring的配置文件
+			4、当spring容器启动的时候，dao层、service层所有的类被实例化了，并且代理类也被实例化了
+	   2、执行struts2过滤器中的init方法
+	   		加载了4种配置文件
+	   		   default.properties
+	   		   struts-default.xml
+	   		   struts-plugin.xml
+	   		      	在lib下所有的jar包的根目录下查找
+	   		   struts.xml
+			   这个时候，所有的配置文件中bean的信息全部注入到struts2容器中了
+			   
+		   在这里有一个struts2-spring-plugin-2.3.1.2.jar包，而该jar包中有一个配置文件
+		      struts-plugin.xml文件
+		      	 <bean 
+		      	 	type="com.opensymphony.xwork2.ObjectFactory" 
+		      	 	name="spring" 
+		      	 	class="org.apache.struts2.spring.StrutsSpringObjectFactory" />
+    			 <constant name="struts.objectFactory" value="spring" />
+    		告诉struts2容器，产生action的类为StrutsSpringObjectFactory
+    		产生action的规则：
+    		    1、根据struts2配置文件中的class属性的值和spring容器中的id进行匹配
+    		        如果匹配成功，则赋值
+    		    2、如果匹配不成功，则按照类型进行匹配
+    		    3、如果类型不匹配，则根据java的反射机制创建对象，这个时候和spring容器没有关系
+    		    4、如果上面的三步都不行，则报错
+             说明:
+          spring容器的作用:
+             1、spring的声明式事务处理
+             2、只有把action交给spring容器来产生，才能让service注入到action中，
+                	才能在action中面向接口编程
+    2、当请求一个url时，
+         struts2容器从spring容器中查找action,获取到action,action调用service,
+         service调用dao
+         
+       
+    	
+					
+   		
+	

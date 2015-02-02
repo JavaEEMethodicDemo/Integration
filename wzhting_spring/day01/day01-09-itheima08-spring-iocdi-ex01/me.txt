@@ -1,0 +1,59 @@
+ioc和di的意义
+   文档管理系统：
+     1、文档的总的接口
+          Document
+             writeDocument
+             readDocument
+     2、文档的实现类
+          WordDocument
+          ExcelDocument
+          PDFDocument
+     3、文档的管理类
+          DocumentManager
+             Document document;
+             writeDocument(){}
+             readDocument(){}
+     4、测试类
+     	public class DocumentTest {
+			@Test
+			public void testDocument(){
+				/**
+				 * 1、创建一个Document对象
+				 * 2、创建DocumentManager对象
+				 * 3、调用方法
+				 */
+				Document wordDocument = new WordDocument();
+				DocumentManager documentManager = new DocumentManager(wordDocument);
+				documentManager.read();
+				documentManager.write();
+			}
+		}
+		
+		Document wordDocument = new WordDocument();
+		等号的左边是接口，等号的右边是实现类
+		
+利用spring容器做:
+   public class DocumentManager {
+		private Document document;
+		public Document getDocument() {
+			return document;
+		}
+		public void setDocument(Document document) {
+			this.document = document;
+		}
+		public DocumentManager(){
+			
+		}
+		public DocumentManager(Document document){
+			this.document = document;
+		}
+		public void read(){
+			this.document.read();
+		}
+		public void write(){
+			this.document.write();
+		}
+	}
+说明：
+   在编写DocumentManager类的时候，无需关注Document接口是由谁来实现的，
+   	具体谁来实现的是由spring的配置文件来决定的，所以在代码端做到了完全的面向接口编程

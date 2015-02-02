@@ -1,0 +1,40 @@
+步骤:
+   1、在Person类中
+   		@Component("person")
+		public class Person {
+			@Resource(name="student")
+			private Student studen;
+			
+			public Student getStudent() {
+				return studen;
+			}
+		}
+   2、在Student类中同样
+   3、在spring的配置文件中
+   		<context:component-scan 
+   			base-package="com.itheima08.spring.scan"></context:component-scan>
+原理：
+    1、启动spring容器
+    2、在base-package指定的包及子包中查找哪些类上面加有@Component
+    3、如果该类加有该注解
+        @Component("person")
+		public class Person {
+			
+		}  	
+		==
+		<bean id="person" class="..Person">	
+		@Component("p")
+		public class Person {
+			
+		}  	
+		==
+		<bean id="p" class="..Person">	
+		@Component
+		public class Person {
+			
+		}  	
+		==
+		  id的值为类的第一个字母变成小写，其他的保持不变
+		<bean id="person" class="..Person">
+	4、当执行完第三步以后，只要加有@Component注解的类就被放入到spring容器中了
+	5、执行@Resource注解的规则

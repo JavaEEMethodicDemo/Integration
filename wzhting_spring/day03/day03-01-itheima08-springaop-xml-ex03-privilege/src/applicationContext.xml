@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/aop 
+           http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+    <bean id="personDao" class="com.itheima08.spring.aop.xml.privilege.dao.impl.PersonDaoImpl"></bean>
+    <bean id="personService" class="com.itheima08.spring.aop.xml.privilege.service.impl.PersonServiceImpl">
+    	<property name="personDao">
+    		<ref bean="personDao"/>
+    	</property>
+    </bean>
+    <bean id="personAction" class="com.itheima08.spring.aop.xml.privilege.action.PersonAction">
+    	<property name="personService">
+    		<ref bean="personService"/>
+    	</property>
+    </bean>
+    <bean id="privilegeAspect" class="com.itheima08.spring.aop.aspect.privilege.PrivilegeAspect"></bean>
+    <aop:config>
+    	<aop:pointcut 
+    		expression="execution(* com.itheima08.spring.aop.xml.privilege.service.impl.*.*(..))" 
+    		id="perform"/>
+    	<aop:aspect ref="privilegeAspect">
+    		<!-- 
+    			控制权限的问题
+    		 -->
+    		<aop:around method="privilegeControl" pointcut-ref="perform"/>
+    		<!-- 
+    			异常处理
+    		 -->
+    		<aop:after-throwing method="throwingMethod" pointcut-ref="perform" throwing="ex"/>
+    	</aop:aspect>
+    </aop:config>
+</beans>

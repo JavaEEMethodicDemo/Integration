@@ -1,0 +1,5 @@
+配置别名
+	<alias name="helloWorld" alias="王二麻子"/>
+	<alias name="helloWorld" alias="林志玲"/>
+	
+一个bean可以起很多个名字应用在不用的模块

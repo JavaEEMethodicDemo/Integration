@@ -1,0 +1,7 @@
+<context:component-scan 
+	base-package="com.itheima08.spring.mvc"></context:component-scan>
+支持的注解有：
+  	@Component  @Repository @Service @Controller @Resource
+  	@Autowire @Qualifier
+  	@PostConstruct(init方法的注解)
+  	@PreDestroy(destroy方法的注解)

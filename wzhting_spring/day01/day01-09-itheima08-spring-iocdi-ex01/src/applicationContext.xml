@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	<!-- 
+		documentManager
+		wordDocument
+		excelDocument
+		pdfDocument
+		放入到spring容器中
+	 -->
+	 <bean id="documentManager" class="com.itheima08.document.DocumentManager">
+	 	<!-- 
+	 		该属性是一个接口
+	 	 -->
+	 	<property name="document">
+	 		<ref bean="wordDocument"/>
+	 	</property>
+	 </bean>
+	 <bean id="wordDocument" class="com.itheima08.document.WordDocument"></bean>
+	 <bean id="excelDocument" class="com.itheima08.document.ExcelDocument"></bean>
+	 <bean id="pdfDocument" class="com.itheima08.document.PDFDocument"></bean>
+</beans>

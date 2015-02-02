@@ -1,0 +1,52 @@
+1、写一个类Person,有个属性String s,通过spring的配置文件给Person中的属性s赋值
+2、写一个类Student,Student继承了Person
+3、让Student把s属性打印出来
+
+
+spring的配置文件
+<bean id="person" class="com.itheima08.spring.extend.Person" abstract="true">
+		<property name="s" value="aaa"></property>
+	</bean>
+	<!-- 
+		parent 从spring容器的角度继承了person
+	 -->
+	<bean id="student" class="com.itheima08.spring.extend.Student" parent="person">
+	</bean>
+	
+	<bean id="student2" class="com.itheima08.spring.extend.Student">
+		<property name="s" value="aaaaa"></property>
+	</bean>
+	
+public class Student extends Person{
+	public Student(){
+		System.out.println("student");
+	}
+	public void say(){
+		System.out.println(this.getS());
+	}
+}
+
+public class Person {
+	public Person(){
+		System.out.println("person");
+	}
+	private String s;
+
+	public String getS() {
+		return s;
+	}
+
+	public void setS(String s) {
+		this.s = s;
+	}	
+}
+
+说明：
+    因为person在spring的配置文件中
+    	<bean id="person" class="com.itheima08.spring.extend.Person">
+    		所以spring容器为person创建对象
+        <bean id="student" class="com.itheima08.spring.extend.Student" parent="person">
+        	所以spring容器要为student创建对象，但是对student创建对象的过程中要调用person的构造器
+        	这个时候，如果不写parent属性，person中的所有的属性将直接为null,只有加了parent属性才能把
+        	原来的person属性中的值继承过来
+	

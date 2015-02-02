@@ -1,0 +1,3 @@
+spring与jdbc
+   1、把数据库连接池引入到spring容器中
+   		

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	<!-- 
+		把一个类放入到spring容器中，该类就称为bean
+	 -->
+	 <!-- 
+	 	id该bean的唯一标示
+	 	class类的全名
+	  -->
+	<bean id="helloWorld" 
+		class="com.itheima08.sring.ioc.createobject.HelloWorld"></bean>
+</beans>
